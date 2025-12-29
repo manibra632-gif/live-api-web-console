@@ -12,11 +12,11 @@ if (typeof API_KEY !== "string") {
 
 const apiOptions: LiveClientOptions = {
   apiKey: API_KEY,
-  // تفعيل السرعة الصاروخية هنا
   model: "models/gemini-2.0-flash-exp",
 };
 
-function App() {
+// التعديل السحري: الإمضاء هنا في الأول عشان يشتغل 100%
+export default function App() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoStream, setVideoStream] = useState<MediaStream | null>(null);
 
@@ -24,7 +24,7 @@ function App() {
     <div className="App" style={{ backgroundColor: '#f0f2f5', minHeight: '100vh', display: 'flex', flexDirection: 'column', fontFamily: 'sans-serif' }}>
       <LiveAPIProvider options={apiOptions}>
         
-        {/* 1. هيدر العربي جروب */}
+        {/* هيدر العربي جروب */}
         <div style={{ backgroundColor: '#0055a5', padding: '15px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', boxShadow: '0 2px 10px rgba(0,0,0,0.1)', zIndex: 100 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Elaraby_Group_Logo.png" alt="Logo" style={{ height: '40px', backgroundColor: 'white', padding: '4px', borderRadius: '8px' }} />
@@ -35,10 +35,10 @@ function App() {
           </div>
         </div>
 
-        {/* 2. جسم التطبيق */}
+        {/* جسم التطبيق */}
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '20px', position: 'relative' }}>
           
-          {/* منطقة الكاميرا/الشاشة */}
+          {/* الكاميرا */}
           <div style={{ width: '100%', maxWidth: '500px', aspectRatio: '16/9', backgroundColor: 'white', borderRadius: '20px', boxShadow: '0 10px 30px rgba(0,0,0,0.05)', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center', border: '1px solid #ddd' }}>
             <video
               className={cn("stream", { hidden: !videoRef.current || !videoStream })}
@@ -50,7 +50,7 @@ function App() {
             {!videoStream && <div style={{ color: '#aaa', fontSize: '14px' }}>الكاميرا مغلقة</div>}
           </div>
 
-          {/* 3. أزرار التحكم العائمة */}
+          {/* الأزرار */}
           <div style={{ position: 'fixed', bottom: '30px', left: '50%', transform: 'translateX(-50%)', backgroundColor: 'white', padding: '10px 25px', borderRadius: '50px', boxShadow: '0 5px 25px rgba(0,0,0,0.2)', display: 'flex', gap: '15px', zIndex: 1000 }}>
              <ControlTray
                videoRef={videoRef}
@@ -64,5 +64,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
