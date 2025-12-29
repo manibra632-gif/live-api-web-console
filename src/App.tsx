@@ -40,49 +40,47 @@ function App() {
   // either the screen capture, the video or null, if null we hide it
   const [videoStream, setVideoStream] = useState<MediaStream | null>(null);
 
-  return (
-    <div className="App">
+ return (
+    <div className="App" style={{ backgroundColor: '#f0f2f5', minHeight: '100vh', display: 'flex', flexDirection: 'column', fontFamily: 'sans-serif' }}>
       <LiveAPIProvider options={apiOptions}>
-        {/* بداية هيدر العربي جروب */}
-<div style={{ backgroundColor: '#0055a5', color: 'white', padding: '15px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '5px solid #c41230', fontFamily: 'sans-serif' }}>
-  <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Elaraby_Group_Logo.png" alt="Logo" style={{ height: '45px', backgroundColor: 'white', padding: '5px', borderRadius: '5px' }} />
-    <div>
-      <h1 style={{ margin: 0, fontSize: '20px', fontWeight: 'bold' }}>El Araby Group</h1>
-      <span style={{ fontSize: '12px', opacity: 0.9 }}>AI Sales Assistant</span>
-    </div>
-  </div>
-</div>
-{/* نهاية هيدر العربي جروب */}
-        <div className="streaming-console">
-          <SidePanel />
-          <main>
-            <div className="main-app-area">
-              {/* APP goes here */}
-              <Altair />
-              <video
-                className={cn("stream", {
-                  hidden: !videoRef.current || !videoStream,
-                })}
-                ref={videoRef}
-                autoPlay
-                playsInline
-              />
+        
+        {/* 1. الهيدر الأزرق (ثابت فوق) */}
+        <div style={{ backgroundColor: '#0055a5', padding: '15px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', boxShadow: '0 2px 10px rgba(0,0,0,0.1)', zIndex: 100 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Elaraby_Group_Logo.png" alt="Logo" style={{ height: '40px', backgroundColor: 'white', padding: '4px', borderRadius: '8px' }} />
+            <div>
+              <h1 style={{ margin: 0, fontSize: '18px', fontWeight: 'bold', color: 'white' }}>El Araby AI</h1>
+              <span style={{ fontSize: '12px', color: '#e0e0e0' }}>Sales Assistant</span>
             </div>
+          </div>
+        </div>
 
-            <ControlTray
-              videoRef={videoRef}
-              supportsVideo={true}
-              onVideoStreamChange={setVideoStream}
-              enableEditingSettings={true}
-            >
-              {/* put your own buttons here */}
-            </ControlTray>
-          </main>
+        {/* 2. جسم التطبيق (في النص) */}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '20px', position: 'relative' }}>
+          
+          {/* منطقة الكاميرا/الشاشة */}
+          <div style={{ width: '100%', maxWidth: '500px', aspectRatio: '16/9', backgroundColor: 'white', borderRadius: '20px', boxShadow: '0 10px 30px rgba(0,0,0,0.05)', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center', border: '1px solid #ddd' }}>
+            <video
+              className={cn("stream", { hidden: !videoRef.current || !videoStream })}
+              ref={videoRef}
+              autoPlay
+              playsInline
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+            {!videoStream && <div style={{ color: '#aaa', fontSize: '14px' }}>الكاميرا مغلقة</div>}
+          </div>
+
+          {/* 3. أزرار التحكم (عائمة في الأسفل) */}
+          <div style={{ position: 'fixed', bottom: '30px', left: '50%', transform: 'translateX(-50%)', backgroundColor: 'white', padding: '10px 25px', borderRadius: '50px', boxShadow: '0 5px 25px rgba(0,0,0,0.2)', display: 'flex', gap: '15px', zIndex: 1000 }}>
+             <ControlTray
+               videoRef={videoRef}
+               supportsVideo={true}
+               onVideoStreamChange={setVideoStream}
+             />
+          </div>
+          
         </div>
       </LiveAPIProvider>
     </div>
   );
 }
-
-export default App;
