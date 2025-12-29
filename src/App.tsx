@@ -15,8 +15,8 @@ const apiOptions: LiveClientOptions = {
   model: "models/gemini-2.0-flash-exp",
 };
 
-// التعديل السحري: الإمضاء هنا في الأول عشان يشتغل 100%
-export default function App() {
+// رجعنا للطريقة القديمة اللي النظام بيحبها (const App)
+const App: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoStream, setVideoStream] = useState<MediaStream | null>(null);
 
@@ -63,4 +63,6 @@ export default function App() {
       </LiveAPIProvider>
     </div>
   );
-}
+};
+
+export default App;
