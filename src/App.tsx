@@ -30,7 +30,7 @@ if (typeof API_KEY !== "string") {
 
 const apiOptions: LiveClientOptions = {
   apiKey: API_KEY,
-  model: "models/gemini-2.0-flash-exp",
+
 };
 
 function App() {
