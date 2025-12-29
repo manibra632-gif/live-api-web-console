@@ -30,6 +30,7 @@ if (typeof API_KEY !== "string") {
 
 const apiOptions: LiveClientOptions = {
   apiKey: API_KEY,
+  model: "models/gemini-2.0-flash-exp",
 };
 
 function App() {
@@ -42,6 +43,17 @@ function App() {
   return (
     <div className="App">
       <LiveAPIProvider options={apiOptions}>
+        {/* بداية هيدر العربي جروب */}
+<div style={{ backgroundColor: '#0055a5', color: 'white', padding: '15px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '5px solid #c41230', fontFamily: 'sans-serif' }}>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Elaraby_Group_Logo.png" alt="Logo" style={{ height: '45px', backgroundColor: 'white', padding: '5px', borderRadius: '5px' }} />
+    <div>
+      <h1 style={{ margin: 0, fontSize: '20px', fontWeight: 'bold' }}>El Araby Group</h1>
+      <span style={{ fontSize: '12px', opacity: 0.9 }}>AI Sales Assistant</span>
+    </div>
+  </div>
+</div>
+{/* نهاية هيدر العربي جروب */}
         <div className="streaming-console">
           <SidePanel />
           <main>
