@@ -1,24 +1,6 @@
-/**
- * Copyright 2024 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 import { useRef, useState } from "react";
 import "./App.scss";
 import { LiveAPIProvider } from "./contexts/LiveAPIContext";
-import SidePanel from "./components/side-panel/SidePanel";
-import { Altair } from "./components/altair/Altair";
 import ControlTray from "./components/control-tray/ControlTray";
 import cn from "classnames";
 import { LiveClientOptions } from "./types";
@@ -30,21 +12,19 @@ if (typeof API_KEY !== "string") {
 
 const apiOptions: LiveClientOptions = {
   apiKey: API_KEY,
-
+  // تفعيل السرعة الصاروخية هنا
+  model: "models/gemini-2.0-flash-exp",
 };
 
 function App() {
-  // this video reference is used for displaying the active stream, whether that is the webcam or screen capture
-  // feel free to style as you see fit
   const videoRef = useRef<HTMLVideoElement>(null);
-  // either the screen capture, the video or null, if null we hide it
   const [videoStream, setVideoStream] = useState<MediaStream | null>(null);
 
- return (
+  return (
     <div className="App" style={{ backgroundColor: '#f0f2f5', minHeight: '100vh', display: 'flex', flexDirection: 'column', fontFamily: 'sans-serif' }}>
       <LiveAPIProvider options={apiOptions}>
         
-        {/* 1. الهيدر الأزرق (ثابت فوق) */}
+        {/* 1. هيدر العربي جروب */}
         <div style={{ backgroundColor: '#0055a5', padding: '15px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', boxShadow: '0 2px 10px rgba(0,0,0,0.1)', zIndex: 100 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Elaraby_Group_Logo.png" alt="Logo" style={{ height: '40px', backgroundColor: 'white', padding: '4px', borderRadius: '8px' }} />
@@ -55,7 +35,7 @@ function App() {
           </div>
         </div>
 
-        {/* 2. جسم التطبيق (في النص) */}
+        {/* 2. جسم التطبيق */}
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '20px', position: 'relative' }}>
           
           {/* منطقة الكاميرا/الشاشة */}
@@ -70,7 +50,7 @@ function App() {
             {!videoStream && <div style={{ color: '#aaa', fontSize: '14px' }}>الكاميرا مغلقة</div>}
           </div>
 
-          {/* 3. أزرار التحكم (عائمة في الأسفل) */}
+          {/* 3. أزرار التحكم العائمة */}
           <div style={{ position: 'fixed', bottom: '30px', left: '50%', transform: 'translateX(-50%)', backgroundColor: 'white', padding: '10px 25px', borderRadius: '50px', boxShadow: '0 5px 25px rgba(0,0,0,0.2)', display: 'flex', gap: '15px', zIndex: 1000 }}>
              <ControlTray
                videoRef={videoRef}
@@ -83,7 +63,6 @@ function App() {
       </LiveAPIProvider>
     </div>
   );
-}
 }
 
 export default App;
